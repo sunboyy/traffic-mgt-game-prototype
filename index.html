@@ -1,0 +1,29 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Traffic Management Game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.11/vue.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <table>
+        <tr v-for="i in size.height">
+          <td
+            class="cell"
+            v-for="j in size.width"
+            v-bind:class="cellClass(i-1,j-1)"
+            v-on:click="rotate(i-1,j-1)"
+          >
+            {{symbol(i-1, j-1)}}
+          </td>
+        </tr>
+      </table>
+
+      <button v-on:click="start()" v-show="!isStarted">Start</button>
+      <button v-on:click="step()" v-show="isStarted">Step</button>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
