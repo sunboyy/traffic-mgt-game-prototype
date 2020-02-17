@@ -33,6 +33,21 @@ table {
 }
 
 .cell-up::after {
+  content: "⬆️";
+}
+
+.cell-down::after {
+  content: "⬇️";
+}
+
+.cell-left::after {
+  content: "⬅️";
+}
+
+.cell-right::after {
+  content: "➡️";
+}
+/* .cell-up::after {
   content: "👆";
 }
 
@@ -46,4 +61,4 @@ table {
 
 .cell-right::after {
   content: "👉";
-}
+} */
