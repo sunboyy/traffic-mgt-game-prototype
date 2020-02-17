@@ -19,7 +19,7 @@ table {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 24px;
-  opacity: 0.95;
+  opacity: 0.92;
   text-shadow: 0 0 20px rgba(255, 255, 255, 1);
   cursor: pointer;
 }

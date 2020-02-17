@@ -20,6 +20,7 @@
             class="cell"
             v-for="j in size.width"
             v-bind:class="cellClass(i-1,j-1)"
+            v-bind:style="cellStyle(i-1,j-1)"
             v-on:click="rotate(i-1,j-1)"
           >
             {{symbol(i-1, j-1)}}

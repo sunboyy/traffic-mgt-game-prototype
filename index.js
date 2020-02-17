@@ -7,7 +7,7 @@ var vm = new Vue({
     isStarted: false
   },
   created() {
-    this.setMap(1);
+    this.setMap(3);
   },
   computed: {
     size() {
@@ -122,12 +122,14 @@ var vm = new Vue({
             {
               start: { x: 4, y: 0 },
               end: { x: 7, y: 11 },
-              direction: "d"
+              direction: "d",
+              color: "orange"
             },
             {
               start: { x: 23, y: 7 },
               end: { x: 11, y: 0 },
-              direction: "l"
+              direction: "l",
+              color: "magenta"
             }
           ]
         });
@@ -147,22 +149,18 @@ var vm = new Vue({
     symbol(i, j) {
       for (const traffic of this.map.traffics) {
         if (traffic.start.x == j && traffic.start.y == i) {
-          return "S";
+          return "St";
         } else if (traffic.end.x == j && traffic.end.y == i) {
-          return "F";
+          return "En";
         }
       }
       const hasPlayer = this.player.pos.x == j && this.player.pos.y == i;
-      for (const car of this.cars) {
-        if (car.pos.x == j && car.pos.y == i) {
-          if (hasPlayer) {
-            return "💥";
-          } else {
-            return "🚗";
-          }
-        }
-      }
-      if (hasPlayer) {
+      const carsOnBlock = this.cars.filter(car => car.pos.x == j && car.pos.y == i);
+      if (carsOnBlock.length >= 2 || (hasPlayer && carsOnBlock.length == 1)) {
+        return "💥";
+      } else if (carsOnBlock.length == 1) {
+        return "🚗";
+      } else if (hasPlayer) {
         return "🚑";
       }
       return "";
@@ -178,6 +176,28 @@ var vm = new Vue({
         "cell-left": this.controls[i][j] == "l",
         "cell-right": this.controls[i][j] == "r"
       };
+    },
+    cellStyle(i, j) {
+      const traffic = this.map.traffics.find(
+        traffic =>
+          (traffic.start.x == j && traffic.start.y == i) ||
+          (traffic.end.x == j && traffic.end.y == i)
+      );
+      if (traffic) {
+        return {
+          "background-color": traffic.color
+        };
+      }
+      const carsOnBlock = this.cars.filter(car => car.pos.x == j && car.pos.y == i);
+      if (carsOnBlock.length >= 2) {
+        return {
+          "background-color": "black"
+        };
+      } else if (carsOnBlock.length == 1) {
+        return {
+          "background-color": carsOnBlock[0].traffic.color
+        };
+      }
     },
     move(car) {
       if (["u", "d", "l", "r"].includes(this.controls[car.pos.y][car.pos.x])) {
