@@ -7,7 +7,7 @@ var vm = new Vue({
     isStarted: false
   },
   created() {
-    this.setMap(3);
+    this.setMap(1);
   },
   computed: {
     size() {
@@ -156,9 +156,10 @@ var vm = new Vue({
       }
       const hasPlayer = this.player.pos.x == j && this.player.pos.y == i;
       const carsOnBlock = this.cars.filter(car => car.pos.x == j && car.pos.y == i);
-      if (carsOnBlock.length >= 2 || (hasPlayer && carsOnBlock.length == 1)) {
+      const trafficsOnBlock = new Set(carsOnBlock.map(car => car.traffic));
+      if (trafficsOnBlock.size >= 2 || (hasPlayer && carsOnBlock.length >= 1)) {
         return "💥";
-      } else if (carsOnBlock.length == 1) {
+      } else if (trafficsOnBlock.size == 1) {
         return "🚗";
       } else if (hasPlayer) {
         return "🚑";
@@ -189,11 +190,12 @@ var vm = new Vue({
         };
       }
       const carsOnBlock = this.cars.filter(car => car.pos.x == j && car.pos.y == i);
-      if (carsOnBlock.length >= 2) {
+      const blockColors = new Set(carsOnBlock.map(car => car.traffic.color));
+      if (blockColors.size > 1) {
         return {
           "background-color": "black"
         };
-      } else if (carsOnBlock.length == 1) {
+      } else if (blockColors.size == 1) {
         return {
           "background-color": carsOnBlock[0].traffic.color
         };
