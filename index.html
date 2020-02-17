@@ -8,7 +8,12 @@
   </head>
   <body>
     <div id="app">
-      <table>
+      <div>
+        <button v-on:click="setMap(1)">Map 1</button>
+        <button v-on:click="setMap(2)">Map 2</button>
+      </div>
+
+      <table v-if="map">
         <tr v-for="i in size.height">
           <td
             class="cell"
@@ -21,8 +26,10 @@
         </tr>
       </table>
 
-      <button v-on:click="start()" v-show="!isStarted">Start</button>
-      <button v-on:click="step()" v-show="isStarted">Step</button>
+      <div v-if="map">
+        <button v-on:click="start()" v-show="!isStarted">Start</button>
+        <button v-on:click="step()" v-show="isStarted">Step</button>
+      </div>
     </div>
     <script src="index.js"></script>
   </body>

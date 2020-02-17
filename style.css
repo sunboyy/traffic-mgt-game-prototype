@@ -4,11 +4,11 @@ table {
 
 .cell {
   border: 1px solid #ccc;
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   margin: 0;
   text-align: center;
-  font-size: 30px;
+  font-size: 28px;
   position: relative;
 }
 
