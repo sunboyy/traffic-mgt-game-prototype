@@ -4,7 +4,9 @@ var vm = new Vue({
     map: undefined,
     controls: [],
     cars: [],
-    isStarted: false
+    isStarted: false,
+    timerId: 0,
+    animatingTraffics: []
   },
   created() {
     this.setMap(1);
@@ -144,7 +146,13 @@ var vm = new Vue({
       this.controls = this.map.controls.map(r => r.split(""));
       this.cars = [];
       this.isStarted = false;
-      for (let i = 0; i < 100; i++) this.step();
+      this.animatingTraffics = [...this.map.traffics];
+      clearInterval(this.timerId);
+      this.timerId = setInterval(() => {
+        this.step();
+        this.$forceUpdate();
+      }, 100);
+      // for (let i = 0; i < 100; i++) this.step();
     },
     symbol(i, j) {
       for (const traffic of this.map.traffics) {
@@ -262,6 +270,12 @@ var vm = new Vue({
       for (let c = this.cars.length - 1; c >= 0; c--) {
         const car = this.cars[c];
         if (car.pos.x == car.traffic.end.x && car.pos.y == car.traffic.end.y) {
+          if (this.animatingTraffics.includes(car.traffic)) {
+            this.animatingTraffics.splice(this.animatingTraffics.indexOf(car.traffic), 1);
+            if (this.animatingTraffics.length == 0) {
+              clearInterval(this.timerId);
+            }
+          }
           this.cars.splice(c, 1);
         }
       }
@@ -292,6 +306,7 @@ var vm = new Vue({
     },
     start() {
       this.isStarted = true;
+      clearInterval(this.timerId);
     }
   }
 });
