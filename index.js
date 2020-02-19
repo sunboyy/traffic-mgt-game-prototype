@@ -209,6 +209,11 @@ var vm = new Vue({
         };
       }
     },
+    cellTextClass(i, j) {
+      return {
+        "cell-text-mirror": this.player.pos.x == j && this.player.pos.y == i
+      };
+    },
     move(car) {
       if (["u", "d", "l", "r"].includes(this.controls[car.pos.y][car.pos.x])) {
         car.direction = this.controls[car.pos.y][car.pos.x];
@@ -288,6 +293,9 @@ var vm = new Vue({
       }
     },
     rotate(i, j) {
+      if (this.animatingTraffics.length > 0) {
+        return;
+      }
       switch (this.controls[i][j]) {
         case "u":
           this.controls[i][j] = "r";

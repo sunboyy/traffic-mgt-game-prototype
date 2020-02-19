@@ -47,3 +47,7 @@ table {
 .cell-right::after {
   content: "➡️";
 }
+
+.cell-text-mirror {
+  transform: scaleX(-1);
+}
