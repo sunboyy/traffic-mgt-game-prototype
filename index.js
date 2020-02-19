@@ -211,7 +211,8 @@ var vm = new Vue({
     },
     cellTextClass(i, j) {
       return {
-        "cell-text-mirror": this.player.pos.x == j && this.player.pos.y == i
+        "cell-text-mirror":
+          this.player.pos.x == j && this.player.pos.y == i && this.player.direction != "l"
       };
     },
     move(car) {

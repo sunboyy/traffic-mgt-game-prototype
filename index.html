@@ -23,9 +23,9 @@
             v-bind:style="cellStyle(i-1,j-1)"
             v-on:click="rotate(i-1,j-1)"
           >
-            <span v-bind:class="cellTextClass(i-1,j-1)">
+            <div v-bind:class="cellTextClass(i-1,j-1)">
               {{symbol(i-1, j-1)}}
-            </span>
+            </div>
           </td>
         </tr>
       </table>
