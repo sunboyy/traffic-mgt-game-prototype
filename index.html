@@ -31,6 +31,13 @@
         </tr>
       </table>
 
+      <div class="loading-bar">
+        <div
+          class="progress"
+          v-bind:style="{width: stepCountdown/maxStepCountdown*100+'%'}"
+        ></div>
+      </div>
+
       <div v-if="map">
         <button v-on:click="start()" v-show="!isStarted">Start</button>
         <button v-on:click="step()" v-show="isStarted">Step</button>

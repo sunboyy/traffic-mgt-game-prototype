@@ -5,7 +5,10 @@ var vm = new Vue({
     controls: [],
     cars: [],
     isStarted: false,
-    timerId: 0,
+    maxStepCountdown: 100,
+    stepCountdown: 0,
+    stepTimerId: 0,
+    animationTimerId: 0,
     animatingTraffics: []
   },
   created() {
@@ -128,7 +131,7 @@ var vm = new Vue({
               start: { x: 1, y: 7 },
               end: { x: 12, y: 7 },
               direction: "r",
-              color: "purple"
+              color: "magenta"
             }
           ]
         });
@@ -194,13 +197,14 @@ var vm = new Vue({
       this.controls = this.map.controls.map(r => r.split(""));
       this.cars = [];
       this.isStarted = false;
+      this.stepCountdown = this.maxStepCountdown;
       this.animatingTraffics = [...this.map.traffics];
-      clearInterval(this.timerId);
-      this.timerId = setInterval(() => {
+      clearInterval(this.stepTimerId);
+      clearInterval(this.animationTimerId);
+      this.animationTimerId = setInterval(() => {
         this.step();
         this.$forceUpdate();
       }, 100);
-      // for (let i = 0; i < 100; i++) this.step();
     },
     symbol(i, j) {
       for (const traffic of this.map.traffics) {
@@ -315,6 +319,7 @@ var vm = new Vue({
       }
     },
     step() {
+      this.resetStepCountdown();
       for (const car of this.cars) {
         this.move(car);
       }
@@ -327,7 +332,7 @@ var vm = new Vue({
           if (this.animatingTraffics.includes(car.traffic)) {
             this.animatingTraffics.splice(this.animatingTraffics.indexOf(car.traffic), 1);
             if (this.animatingTraffics.length == 0) {
-              clearInterval(this.timerId);
+              clearInterval(this.animationTimerId);
             }
           }
           this.cars.splice(c, 1);
@@ -363,7 +368,16 @@ var vm = new Vue({
     },
     start() {
       this.isStarted = true;
-      clearInterval(this.timerId);
+      clearInterval(this.animationTimerId);
+      this.stepTimerId = setInterval(() => {
+        this.stepCountdown--;
+        if (this.stepCountdown <= 0) {
+          this.step();
+        }
+      }, 50);
+    },
+    resetStepCountdown() {
+      this.stepCountdown = this.maxStepCountdown;
     }
   }
 });
