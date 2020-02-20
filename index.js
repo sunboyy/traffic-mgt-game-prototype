@@ -51,6 +51,42 @@ var vm = new Vue({
             }
           ]
         });
+      }
+      if (mapId == 3) {
+        this.initMap({
+          board: [
+            [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
+            [0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0],
+            [1, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1],
+            [0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0]
+          ],
+          controls: [
+            "...........",
+            "...d.r.d...",
+            "...........",
+            "...d...d...",
+            "...........",
+            "...r.r.d...",
+            "...........",
+            "..........."
+          ],
+          flow: {
+            start: { x: 0, y: 3 },
+            end: { x: 10, y: 3 },
+            startDirection: "r"
+          },
+          traffics: [
+            {
+              start: { x: 3, y: 0 },
+              end: { x: 7, y: 6 },
+              direction: "d",
+              color: "orange"
+            }
+          ]
+        });
       } else if (mapId == 2) {
         this.initMap({
           board: [
@@ -87,7 +123,7 @@ var vm = new Vue({
             }
           ]
         });
-      } else if (mapId == 3) {
+      } else if (mapId == 4) {
         this.initMap({
           board: [
             [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -135,7 +171,7 @@ var vm = new Vue({
             }
           ]
         });
-      } else if (mapId == 4) {
+      } else if (mapId == 5) {
         this.initMap({
           board: [
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -186,7 +222,7 @@ var vm = new Vue({
             }
           ]
         });
-      } else if (mapId == 5) {
+      } else if (mapId == 6) {
         this.initMap({
           board: [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

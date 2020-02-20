@@ -14,6 +14,7 @@
         <button v-on:click="setMap(3)">Map 3</button>
         <button v-on:click="setMap(4)">Map 4</button>
         <button v-on:click="setMap(5)">Map 5</button>
+        <button v-on:click="setMap(6)">Map 6</button>
       </div>
 
       <table v-if="map">
@@ -40,7 +41,9 @@
       </div>
 
       <div v-if="map">
-        <button v-on:click="start()" v-show="!isStarted && animatingTraffics.length==0">Start</button>
+        <button v-on:click="start()" v-show="!isStarted && animatingTraffics.length==0">
+          Start
+        </button>
         <button v-on:click="step()" v-show="isStarted">Step</button>
       </div>
     </div>
